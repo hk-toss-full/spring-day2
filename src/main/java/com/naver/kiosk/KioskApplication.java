@@ -11,3 +11,9 @@ public class KioskApplication {
 	}
 
 }
+/*
+	http > method
+	GET body x 요청 방법 : url 치고 들어감
+	localhost:8080/java
+	POST body o <form> url x
+ */
