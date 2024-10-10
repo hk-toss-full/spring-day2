@@ -1,10 +1,9 @@
 package com.naver.kiosk.store;
 
-import ch.qos.logback.core.util.StringUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
 restful api
@@ -27,7 +26,7 @@ setName("커피")
 스토어 1번을 지운다 (stores/1) (DELETE)
 
 정리
-1. URL 복수형 만 사용해라 (/store x)
+1. URL 복수형 만 사용해라 (/store x) -> /stores
 2. 명사만 사용해라 (/stores/create x) -> /stores POST
 3. 소문자로 작성해라 (/storesCreate) -> (/store_create)
 4. 언더바(_) 말고 하이픈(-)으로 작성해라 (/store_create) -> (/store-create)
@@ -43,29 +42,34 @@ status code
 500 =< > 600 서버측 실수 (500 internal server error)
  */
 
-
-
 @RestController
+@RequestMapping("/stores")
 public class StoreController {
-    @GetMapping
-    public List<Store> getAllStores() {
-        return Utils.stores;
+    private final StoreService storeService;
+    public StoreController(StoreService storeService) {
+        this.storeService = storeService;
     }
 
-    //    localhost:8080/id 변수 variable 주소 path
+    @GetMapping
+    public List<Store> getAllStores() {
+        return storeService.getAllStores();
+    }
     @GetMapping("/{store-id}")
     public Store getStoreById(
             @PathVariable(value = "store-id") int id
     ) {
-        Optional<Store> first = Utils.stores
+        return Utils.stores
                 .stream()
                 .filter(el -> el.getId() == id)
-                .findFirst();
-        if (first.isEmpty()) throw new StoreNotFound(id);
-        return first.get();
+                .findFirst()
+                .orElseThrow(() -> new StoreNotFoundException(id));
+
+//        if (first.isEmpty()) throw new StoreNotFoundException(id);
+//        return first.get();
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Store saveStore(
             @RequestBody StoreRequest request
     ) {
