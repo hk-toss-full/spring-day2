@@ -32,6 +32,15 @@ setName("커피")
 3. 소문자로 작성해라 (/storesCreate) -> (/store_create)
 4. 언더바(_) 말고 하이픈(-)으로 작성해라 (/store_create) -> (/store-create)
 
+성공했다. 실패했다. 하긴 했는데 별 일 없었다.
+http 통신
+
+status code
+100 =< > 200 socket
+200 =< > 300 http 통신 (성공)
+300 =< > 400 html 을 사용 할때 (Found, Redirect)
+400 =< > 500 클라이언트 실수 (404 not found, 401 권한 없음)
+500 =< > 600 서버측 실수 (500 internal server error)
  */
 
 
@@ -52,7 +61,7 @@ public class StoreController {
                 .stream()
                 .filter(el -> el.getId() == id)
                 .findFirst();
-        if (first.isEmpty()) throw new RuntimeException();
+        if (first.isEmpty()) throw new StoreNotFound(id);
         return first.get();
     }
 
