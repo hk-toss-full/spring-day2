@@ -1,5 +1,6 @@
 package com.naver.kiosk.store;
 
+import ch.qos.logback.core.util.StringUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,32 +39,41 @@ setName("커피")
 @RestController
 public class StoreController {
     @GetMapping
-    public List<Store> getAllStores(){
+    public List<Store> getAllStores() {
         return Utils.stores;
     }
-//    localhost:8080/id 변수 variable 주소 path
+
+    //    localhost:8080/id 변수 variable 주소 path
     @GetMapping("/{store-id}")
     public Store getStoreById(
             @PathVariable(value = "store-id") int id
-    ){
-//        Integer id = 10_000;
+    ) {
         Optional<Store> first = Utils.stores
                 .stream()
                 .filter(el -> el.getId() == id)
                 .findFirst();
-//        Optional<Store>
-        // 비어있으면 에러 발생
-        if(first.isEmpty()) throw new RuntimeException();
+        if (first.isEmpty()) throw new RuntimeException();
         return first.get();
     }
+
     @PostMapping
     public Store saveStore(
-        @RequestBody StoreRequest request
-    ){
+            @RequestBody StoreRequest request
+    ) {
         Store store = request.toStore();
         Utils.stores.add(store);
         return store;
     }
-
-
+    @DeleteMapping("/{store-id}")
+    public void deleteStore(@PathVariable(value = "store-id") int id){
+        Store storeById = getStoreById(id);
+        Utils.stores.remove(storeById);
+    }
+    @PutMapping("/{store-id}")
+    public Store updateStore(
+            @PathVariable(value = "store-id") int id,
+            @RequestBody StoreRequest request
+    ){
+        return getStoreById(id).update(request);
+    }
 }

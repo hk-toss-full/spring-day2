@@ -1,4 +1,7 @@
 package com.naver.kiosk.store;
+
+import ch.qos.logback.core.util.StringUtil;
+
 // 1. 가게
 // name : 매머드커피
 // address : 서울
@@ -18,6 +21,15 @@ public class Store {
     private String address;
     private short openTime;
     private short closeTime;
+
+    public Store update(StoreRequest request){
+        if(!StringUtil.isNullOrEmpty(request.name()))
+            this.name = request.name();
+        if(!request.address().isEmpty())
+            this.address = request.address();
+        return this;
+    }
+
     public Store(String name, String address, short openTime, short closeTime) {
         this.id = Utils.storeCount++;
         this.name = name;
@@ -44,6 +56,5 @@ public class Store {
     public short getCloseTime() {
         return closeTime;
     }
-
 
 }
