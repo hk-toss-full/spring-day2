@@ -7,9 +7,10 @@ import java.util.List;
 // controller 유저와 개발자의 소통 공간
 // service 개발자의 생각 공간
 // repository 개발자와 data 와의 소통 공간
-
+@Service
 public class StoreServiceImpl implements StoreService {
     public List<Store> getAllStores(){
+        System.out.println(1);
         return Utils.stores;
     }
     public Store getStoreById(int id){
