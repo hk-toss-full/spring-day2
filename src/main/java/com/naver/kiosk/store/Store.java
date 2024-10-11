@@ -21,6 +21,21 @@ public class Store {
     private String address;
     private short openTime;
     private short closeTime;
+    private boolean isDeleted;
+    public Store(String name, String address, short openTime, short closeTime) {
+        this.id = Utils.storeCount++;
+        this.name = name;
+        this.address = address;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.isDeleted = false;
+    }
+    public void delete(){
+        isDeleted = true;
+    }
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 
     public Store update(StoreRequest request){
         if(!StringUtil.isNullOrEmpty(request.name()))
@@ -30,13 +45,7 @@ public class Store {
         return this;
     }
 
-    public Store(String name, String address, short openTime, short closeTime) {
-        this.id = Utils.storeCount++;
-        this.name = name;
-        this.address = address;
-        this.openTime = openTime;
-        this.closeTime = closeTime;
-    }
+
     public int getId() {
         return id;
     }

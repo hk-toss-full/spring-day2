@@ -9,14 +9,17 @@ import java.util.List;
 // repository 개발자와 data 와의 소통 공간
 @Service
 public class StoreServiceImpl implements StoreService {
-    public List<Store> getAllStores(){
-        System.out.println(1);
-        return Utils.stores;
+    public List<StoreResponse> getAllStores(){
+        List<StoreResponse> list = Utils.stores
+                .stream()
+                .map(StoreResponse::from)
+                .toList();
+        return list;
     }
     public Store getStoreById(int id){
         return Utils.stores
                 .stream()
-                .filter(el -> el.getId() == id)
+                .filter(el -> el.getId() == id && !el.isDeleted())
                 .findFirst()
                 .orElseThrow(() -> new StoreNotFoundException(id));
     }
@@ -27,11 +30,10 @@ public class StoreServiceImpl implements StoreService {
     }
     public void deleteStore(int id){
         Store storeById = getStoreById(id);
-        Utils.stores.remove(storeById);
+        storeById.delete();
     }
 
-    public Store updateStore(int id, StoreRequest request
-    ){
+    public Store updateStore(int id, StoreRequest request){
         return getStoreById(id).update(request);
     }
 }
