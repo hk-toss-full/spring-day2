@@ -1,4 +1,4 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.exception;
 
 public class StoreNotFoundException extends IllegalArgumentException {
     public StoreNotFoundException(int id) {

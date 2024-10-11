@@ -1,15 +1,13 @@
 package com.naver.kiosk.kiosk;
 
-import com.naver.kiosk.store.Store;
-import com.naver.kiosk.store.StoreNotFoundException;
-import com.naver.kiosk.store.StoreService;
+import com.naver.kiosk.store.domain.Store;
+import com.naver.kiosk.store.exception.StoreNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-
+@Service
 public class KioskServiceImpl implements KioskService {
     private final GetStoreService storeService;
     public KioskServiceImpl(GetStoreService storeService) {
@@ -44,14 +42,11 @@ public class KioskServiceImpl implements KioskService {
                 .orElseThrow(() -> new StoreNotFoundException(request.storeId()));
         Kiosk kiosk = new Kiosk(request.kioskNumber(), store);
         Utils.kiosks.add(kiosk);
+        kiosk.getStore().getKiosks().add(kiosk);
         return KioskResponse.from(kiosk);
     }
 
-    @Override
-    public KioskResponse updateKiosk(int id, KioskRequest request) {
-        Kiosk kiosk = getOptionalKioskById(id).orElseThrow(() -> new KioskNotFound(id));
-        return KioskResponse.from(kiosk);
-    }
+
 
     @Override
     public void deleteKiosk(int id) {

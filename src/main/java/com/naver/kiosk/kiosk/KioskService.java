@@ -8,6 +8,6 @@ public interface KioskService {
     List<KioskResponse> getAllKiosks();
     KioskResponse getKioskById(int id);
     KioskResponse addKiosk(KioskRequest request);
-    KioskResponse updateKiosk(int id, KioskRequest request);
+
     void deleteKiosk(int id);
 }

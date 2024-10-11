@@ -1,6 +1,6 @@
 package com.naver.kiosk.kiosk;
 
-import com.naver.kiosk.store.Store;
+import com.naver.kiosk.store.domain.Store;
 
 public class Kiosk {
     // 고유 값
@@ -11,6 +11,12 @@ public class Kiosk {
     private final Store store;
     // 고장
     private boolean active;
+    public Kiosk(int kioskNumber, Store store) {
+        this.id = Utils.kioskCount++;
+        this.kioskNumber = kioskNumber;
+        this.store = store;
+        this.active = true;
+    }
     public void crash(){
         this.active = false;
     }
@@ -30,9 +36,5 @@ public class Kiosk {
         return active;
     }
 
-    public Kiosk(int kioskNumber, Store store) {        this.id = Utils.kioskCount++;
-        this.kioskNumber = kioskNumber;
-        this.store = store;
-        this.active = true;
-    }
+
 }

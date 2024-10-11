@@ -24,12 +24,6 @@ public class KioskController {
     public void deleteKioskById(@PathVariable int id){
         kioskService.deleteKiosk(id);
     }
-    @PutMapping("/{id}")
-    public KioskResponse updateKiosk(
-            @PathVariable int id,
-            @RequestBody KioskRequest kioskRequest){
-        return kioskService.updateKiosk(id, kioskRequest);
-    }
     @PostMapping
     public KioskResponse createKiosk(@RequestBody KioskRequest kioskRequest){
         return kioskService.addKiosk(kioskRequest);

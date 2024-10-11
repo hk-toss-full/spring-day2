@@ -1,6 +1,12 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.domain;
 
 import ch.qos.logback.core.util.StringUtil;
+import com.naver.kiosk.kiosk.Kiosk;
+import com.naver.kiosk.store.request.StoreRequest;
+import com.naver.kiosk.store.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // 1. 가게
 // name : 매머드커피
@@ -22,6 +28,12 @@ public class Store {
     private short openTime;
     private short closeTime;
     private boolean isDeleted;
+    private List<Kiosk> kiosks;
+
+    public List<Kiosk> getKiosks() {
+        return kiosks;
+    }
+
     public Store(String name, String address, short openTime, short closeTime) {
         this.id = Utils.storeCount++;
         this.name = name;
@@ -29,6 +41,7 @@ public class Store {
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.isDeleted = false;
+        this.kiosks = new ArrayList<>();
     }
     public void delete(){
         isDeleted = true;

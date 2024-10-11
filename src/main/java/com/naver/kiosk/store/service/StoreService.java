@@ -1,10 +1,12 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.service;
 
-import com.naver.kiosk.kiosk.GetStoreService;
+import com.naver.kiosk.store.domain.Store;
+import com.naver.kiosk.store.request.StoreRequest;
+import com.naver.kiosk.store.response.StoreResponse;
 
 import java.util.List;
 
-public interface StoreService extends GetStoreService {
+public interface StoreService  {
     List<StoreResponse> getAllStores();
     Store getStoreById(int id);
     Store addStore(StoreRequest request);

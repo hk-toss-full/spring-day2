@@ -1,9 +1,7 @@
 package com.naver.kiosk.kiosk;
 
-import com.naver.kiosk.store.Store;
-import com.naver.kiosk.store.StoreResponse;
+import com.naver.kiosk.store.domain.Store;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface GetStoreService {

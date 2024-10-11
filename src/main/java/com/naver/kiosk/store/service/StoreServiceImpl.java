@@ -1,5 +1,12 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.service;
 
+import com.naver.kiosk.kiosk.GetStoreService;
+import com.naver.kiosk.kiosk.Kiosk;
+import com.naver.kiosk.store.domain.Store;
+import com.naver.kiosk.store.exception.StoreNotFoundException;
+import com.naver.kiosk.store.request.StoreRequest;
+import com.naver.kiosk.store.response.StoreResponse;
+import com.naver.kiosk.store.util.Utils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +16,8 @@ import java.util.Optional;
 // service 개발자의 생각 공간
 // repository 개발자와 data 와의 소통 공간
 @Service
-public class StoreServiceImpl implements StoreService {
+public class StoreServiceImpl
+        implements StoreService, GetStoreService, KioskService {
     public List<StoreResponse> getAllStores(){
         List<StoreResponse> list = Utils.stores
                 .stream()
@@ -41,5 +49,11 @@ public class StoreServiceImpl implements StoreService {
                 .stream()
                 .filter(el -> el.getId() == id && !el.isDeleted())
                 .findFirst();
+    }
+
+    @Override
+    public List<Kiosk> getKiosksByStoreId(int storeId) {
+
+        return List.of();
     }
 }

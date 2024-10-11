@@ -1,5 +1,7 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.config;
 
+import com.naver.kiosk.store.service.StoreService;
+import com.naver.kiosk.store.service.StoreServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

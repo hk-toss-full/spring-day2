@@ -1,4 +1,6 @@
-package com.naver.kiosk.store;
+package com.naver.kiosk.store.request;
+
+import com.naver.kiosk.store.domain.Store;
 
 // 모든 field private final 이고 getter 가 있으면 변경가능
 // recode classname(...field) 생성자
